@@ -6,7 +6,7 @@ import ReactiveSwift
 import RealmSwift
 
 class TodoRealm: Object {
-  @objc dynamic var id: Int = 0
+  @objc dynamic var id: String = UUID().uuidString
   @objc dynamic var title: String = ""
   @objc dynamic var isCompleted: Bool = false
 
