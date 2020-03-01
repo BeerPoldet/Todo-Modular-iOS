@@ -4,6 +4,9 @@ options:
   createIntermediateGroups: true
   deploymentTarget: "12.0"
 packages:
+  Needle:
+    url: https://github.com/uber/needle.git
+    from: 0.13.0
   Realm:
     url: https://github.com/realm/realm-cocoa.git
     from: 4.3.0
@@ -43,6 +46,8 @@ targets:
         UIRequiresFullScreen~ipad: true
         UILaunchStoryboardName: LaunchScreen
     dependencies:
+      - package: Needle
+        product: NeedleFoundation
       - package: Overture
       - package: Prelude
       - target: Foundation_Todo_Repository
@@ -57,6 +62,8 @@ targets:
     info:
       path: Features/Todo_List/Info.plist
     dependencies:
+      - package: Needle
+        product: NeedleFoundation
       - package: Overture
       - package: Prelude
       - package: PinLayout
@@ -71,6 +78,8 @@ targets:
     info:
       path: Features/Todo_Form/Info.plist
     dependencies:
+      - package: Needle
+        product: NeedleFoundation
       - package: Overture
       - package: Prelude
       - package: PinLayout
@@ -85,6 +94,8 @@ targets:
     info:
       path: Foundations/Todo_Repository/Info.plist
     dependencies:
+      - package: Needle
+        product: NeedleFoundation
       - package: Overture
       - package: Prelude
       - package: ReactiveSwift
@@ -96,6 +107,8 @@ targets:
     info:
       path: Dependencies/Realm/Info.plist
     dependencies:
+      - package: Needle
+        product: NeedleFoundation
       - package: Realm
       - package: Realm
         product: RealmSwift

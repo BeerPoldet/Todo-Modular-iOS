@@ -1,5 +1,6 @@
 import Dependency_Realm
 import Feature_Todo_List
+import NeedleFoundation
 import UIKit
 
 @UIApplicationMain
@@ -11,16 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    registerProviderFactories()
     initialRealmConfig()
 
     let window = UIWindow()
-    let rootViewController = UITabBarController()
-    rootViewController.viewControllers = [
-      UINavigationController(
-        rootViewController: TodoListViewController(
-          environment: (todoListRepository, routeTodoForm, updateTodoRepository))
-      ),
-    ]
+    let rootViewController = RootComponent().createRootViewController
     window.rootViewController = rootViewController
     window.makeKeyAndVisible()
     self.window = window

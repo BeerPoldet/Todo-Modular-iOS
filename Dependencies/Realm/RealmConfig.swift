@@ -15,9 +15,11 @@ public func initialRealmConfig() {
         // Nothing to do!
         // Realm will automatically detect new properties and removed properties
         // And will update the schema on disk automatically
-        migration.enumerateObjects(ofType: TodoRealm.className(), { (old, new) in
-          new!["id"] = UUID().uuidString
-        })
+        migration.enumerateObjects(
+          ofType: TodoRealm.className(),
+          { (old, new) in
+            new!["id"] = UUID().uuidString
+          })
       }
     })
 

@@ -11,6 +11,13 @@ public func routeTodoForm(viewController: UIViewController) {
     >>> { viewController.present($0, animated: true) }
 }
 
+public func presentViewController(
+  presenting: UIViewController,
+  presented: UIViewController
+) {
+  presenting.present(presented, animated: true)
+}
+
 public func dismissViewController(_ viewController: UIViewController) {
   viewController.dismiss(animated: true)
 }

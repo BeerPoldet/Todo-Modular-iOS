@@ -69,7 +69,6 @@ extension TodoListViewController: UITableViewDataSource {
     if let todoCell = cell as? TodoCell {
       let dispose = CompositeDisposable()
       let todo = todos[indexPath.row]
-      print("todo", todo)
       todoCell.label.text = todo.title
       todoCell.completeSwitch.isOn = todo.isCompleted
       dispose += todoCell.completeSwitch.reactive
