@@ -37,7 +37,7 @@ public func todoListViewModel(input: TodoListViewModelInput, environment: TodoLi
     }
 
   return TodoListViewModelOutput(
-    todoModels: todoListSignal.logEvents(),
+    todoModels: todoListSignal,
     routeToAddTodo: routeToAddTodo
   )
 }
