@@ -1,0 +1,106 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CwlCatchException",
+        "repositoryURL": "https://github.com/mattgallagher/CwlCatchException.git",
+        "state": {
+          "branch": null,
+          "revision": "7cd2f8cacc4d22f21bc0b2309c3b18acf7957b66",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "CwlPreconditionTesting",
+        "repositoryURL": "https://github.com/mattgallagher/CwlPreconditionTesting.git",
+        "state": {
+          "branch": null,
+          "revision": "c228db5d2ad1b01ebc84435e823e6cca4e3db98b",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "Nimble",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "state": {
+          "branch": null,
+          "revision": "b02b00b30b6353632aa4a5fb6124f8147f7140c0",
+          "version": "8.0.5"
+        }
+      },
+      {
+        "package": "PinLayout",
+        "repositoryURL": "https://github.com/layoutBox/PinLayout.git",
+        "state": {
+          "branch": null,
+          "revision": "930593a02857d25472a1965ce052e6d716b37c58",
+          "version": "1.8.13"
+        }
+      },
+      {
+        "package": "Quick",
+        "repositoryURL": "https://github.com/Quick/Quick.git",
+        "state": {
+          "branch": null,
+          "revision": "33682c2f6230c60614861dfc61df267e11a1602f",
+          "version": "2.2.0"
+        }
+      },
+      {
+        "package": "ReactiveCocoa",
+        "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveCocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "3937d9e64459b6cb8bf0ec1823251a25943c8eac",
+          "version": "10.2.0"
+        }
+      },
+      {
+        "package": "ReactiveSwift",
+        "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "e27ccdbf4ec36f154b60b91a0d7e0110c4e882cb",
+          "version": "6.2.1"
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-cocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "913d59c6522e3007c7cbac3a8e9775abf72c054c",
+          "version": "4.3.2"
+        }
+      },
+      {
+        "package": "RealmCore",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "35662ff940e340bf630ad1d1d88acfc7af18bee6",
+          "version": "5.23.8"
+        }
+      },
+      {
+        "package": "Overture",
+        "repositoryURL": "https://github.com/pointfreeco/swift-overture.git",
+        "state": {
+          "branch": null,
+          "revision": "7977acd7597f413717058acc1e080731249a1d7e",
+          "version": "0.5.0"
+        }
+      },
+      {
+        "package": "Prelude",
+        "repositoryURL": "https://github.com/pointfreeco/swift-prelude.git",
+        "state": {
+          "branch": "master",
+          "revision": "c61b49392768a6fa90fe9508774cf90a80061c8b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

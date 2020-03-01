@@ -1,0 +1,103 @@
+name: ios-needle
+options:
+  bundleIdPrefix: assanee.todo-list
+  createIntermediateGroups: true
+  deploymentTarget: "12.0"
+packages:
+  Realm:
+    url: https://github.com/realm/realm-cocoa.git
+    from: 4.3.0
+  Overture:
+    url: https://github.com/pointfreeco/swift-overture.git
+    from: 0.5.0
+  Prelude:
+    url: https://github.com/pointfreeco/swift-prelude.git
+    branch: master
+  PinLayout:
+    url: https://github.com/layoutBox/PinLayout.git
+    from: 1.8.0
+  ReactiveSwift:
+    url: https://github.com/ReactiveCocoa/ReactiveSwift.git
+    from: 6.2.0
+  ReactiveCocoa:
+    url: https://github.com/ReactiveCocoa/ReactiveCocoa.git
+    from: 10.2.0
+
+targets:
+  Todo_App:
+    type: application
+    platform: iOS
+    sources: [Apps/Todo_App]
+    info:
+      path: Apps/Todo_App/Info.plist
+      properties:
+        LSRequiresIPhoneOS: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIRequiresFullScreen~ipad: true
+        UILaunchStoryboardName: LaunchScreen
+    dependencies:
+      - package: Overture
+      - package: Prelude
+      - target: Foundation_Todo_Repository
+      - target: Feature_Todo_List
+      - target: Feature_Todo_Form
+      - target: Dependency_Realm
+
+  Feature_Todo_List:
+    type: framework
+    platform: iOS
+    sources: [Features/Todo_List]
+    info:
+      path: Features/Todo_List/Info.plist
+    dependencies:
+      - package: Overture
+      - package: Prelude
+      - package: PinLayout
+      - package: ReactiveSwift
+      - package: ReactiveCocoa
+      - target: Foundation_Todo_Repository
+
+  Feature_Todo_Form:
+    type: framework
+    platform: iOS
+    sources: [Features/Todo_Form]
+    info:
+      path: Features/Todo_Form/Info.plist
+    dependencies:
+      - package: Overture
+      - package: Prelude
+      - package: PinLayout
+      - package: ReactiveSwift
+      - package: ReactiveCocoa
+      - target: Foundation_Todo_Repository
+
+  Foundation_Todo_Repository:
+    type: framework
+    platform: iOS
+    sources: [Foundations/Todo_Repository]
+    info:
+      path: Foundations/Todo_Repository/Info.plist
+    dependencies:
+      - package: Overture
+      - package: Prelude
+      - package: ReactiveSwift
+
+  Dependency_Realm:
+    type: framework
+    platform: iOS
+    sources: [Dependencies/Realm]
+    info:
+      path: Dependencies/Realm/Info.plist
+    dependencies:
+      - package: Realm
+      - package: Realm
+        product: RealmSwift
+      - package: ReactiveSwift
+      - target: Foundation_Todo_Repository
