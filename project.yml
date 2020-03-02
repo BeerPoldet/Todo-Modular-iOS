@@ -1,4 +1,4 @@
-name: ios-needle
+name: TodoList_Modular
 options:
   bundleIdPrefix: assanee.todo-list
   createIntermediateGroups: true
