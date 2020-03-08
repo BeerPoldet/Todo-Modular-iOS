@@ -1,4 +1,5 @@
 import Foundation_Todo_Repository
+import Overture
 import PinLayout
 import ReactiveCocoa
 import ReactiveSwift
@@ -10,6 +11,7 @@ public class TodoListViewController: UIViewController {
   var todos: [TodoModel] = []
 
   let viewDidLoadProperty = MutableProperty(())
+  let viewWillDisappearProperty = MutableProperty(())
   let onAddTodoProperty = MutableProperty(())
 
   let (isCompleteChangeSignal, isCompleteChangeObserver) = Signal<(TodoModel, Bool), Never>.pipe()
@@ -18,6 +20,7 @@ public class TodoListViewController: UIViewController {
     let output = todoListViewModel(
       input: TodoListViewModelInput(
         viewDidLoad: viewDidLoadProperty.signal,
+        viewWillDisappear: viewWillDisappearProperty.signal,
         onAddTodo: onAddTodoProperty.signal,
         isCompleteChange: isCompleteChangeSignal
       ),
@@ -26,8 +29,21 @@ public class TodoListViewController: UIViewController {
     super.init(nibName: nil, bundle: nil)
 
     output.todoModels.observeValues({ [weak self] in
-      self?.todos = $0
-      self?.rootView.tableView.reloadData()
+      switch $0 {
+      case let .initial(todos):
+        self?.todos = todos
+        self?.rootView.tableView.reloadData()
+      case let .changes(todos, deletions, insertions, modifications):
+        let indexPath: (Int) -> IndexPath = { IndexPath(row: $0, section: 0) }
+        self?.todos = todos
+        self?.rootView.tableView.beginUpdates()
+        self?.rootView.tableView.deleteRows(at: with(deletions, map(indexPath)), with: .automatic)
+        self?.rootView.tableView.insertRows(at: with(insertions, map(indexPath)), with: .automatic)
+        self?.rootView.tableView.reloadRows(at: with(modifications, map(indexPath)), with: .none)
+        self?.rootView.tableView.endUpdates()
+      case .error:
+        break
+      }
     })
 
     output.routeToAddTodo.observeValues { [weak self] (route) in
@@ -54,6 +70,11 @@ public class TodoListViewController: UIViewController {
     rootView.tableView.dataSource = self
 
     viewDidLoadProperty.value = ()
+  }
+
+  public override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    viewWillDisappearProperty.value = ()
   }
 
   @objc public func onAddTodo() {

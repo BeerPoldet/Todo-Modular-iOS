@@ -22,11 +22,39 @@ private func todoModel(todoRealm: TodoRealm) -> TodoModel {
 let (todoAddedSignal, todoAddedObserver) = Signal<TodoModel, Never>.pipe()
 let (todoUpdatedSignal, todoUpdatedObserver) = Signal<TodoModel, Never>.pipe()
 
+private func subscriptionData<T>(changes: RealmCollectionChange<T>) -> RepositorySubscriptionData<T>
+{
+  switch changes {
+  case let .initial(results): return .initial(results)
+  case let .update(results, deletions, insertions, modifications):
+    return .changes(
+      results, deletions: deletions, insertions: insertions, modifications: modifications)
+  case let .error(error): return .error(error)
+  }
+}
+
 public let todoListRepository = TodoListRepository(
   list: {
     let realm = try! Realm()
     return realm.objects(TodoRealm.self).map(todoModel(todoRealm:))
-  }, added: todoAddedSignal)
+  },
+  added: todoAddedSignal,
+  updated: todoUpdatedSignal,
+  subscribe: {
+    SignalProducer<RepositorySubscriptionData<[TodoModel]>, Never>.init { (observer, lifetime) in
+      let realm = try! Realm()
+      let results = realm.objects(TodoRealm.self)
+      let token = results.observe { (changes) in
+        changes
+          |> subscriptionData(changes:)
+          >>> (Overture.map >>> fmapSubscription)(todoModel(todoRealm:))
+          >>> observer.send(value:)
+      }
+
+      lifetime.observeEnded(token.invalidate)
+    }
+  }
+)
 
 public let addTodoRepository = AddTodoRepository(
   add: { addTodoModel in
